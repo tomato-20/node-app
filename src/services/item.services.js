@@ -1,7 +1,8 @@
 const Item = require("../models/Item"),
   {StatusCodes,ReasonPhrases} = require('http-status-codes');
+const HTTPErrors = require("../utils/errors/HTTPErros");
 
-const HTTPErrors = require('../utils/errors/HTTPErros');
+const { logger } = require("../utils/Logger");
 
 /**
  * Create a new Item
@@ -56,9 +57,8 @@ exports.getOneItem = async (id) => {
     try {
         let data = await Item.findById(id);
         if(!data) {
-            throw new HTTPErrors(StatusCodes.BAD_REQUEST,`Cannot find item with id ${id}`,ReasonPhrases.BAD_REQUEST)
-            // throw new Error(`Cannot find item with id ${id}`);
-
+            logger.info(`Cannot find item with id ${id}`)
+            throw new HTTPErrors(StatusCodes.NOT_FOUND,`Cannot find item with id ${id}`,ReasonPhrases.NOT_FOUND)
         }
         return data
     } catch (error) {

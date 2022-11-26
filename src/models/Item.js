@@ -28,13 +28,10 @@ class Item {
         this.description ? this.description : null,
         date,
       ]);
-      // todo: if insertion failed | rowaffected = 0
       return { id, title: this.title, description: this.description };
     } catch (error) {
       throw error;
-    } finally {
-      // await pool.end();
-    }
+    } 
   }
 
   static async findAll(page = 0, offset = 10) {
@@ -44,9 +41,7 @@ class Item {
       return result;
     } catch (error) {
       throw error;
-    } finally {
-      // await pool.end();
-    }
+    } 
   }
 
   static async findById(id) {
@@ -57,9 +52,7 @@ class Item {
       return result.length ? result[0] : null;
     } catch (error) {
       throw error;
-    } finally {
-      // await pool.end();
-    }
+    } 
   }
 
   static async update(id, updateInput) {
@@ -83,9 +76,7 @@ class Item {
       return;
     } catch (error) {
       throw error;
-    } finally {
-      // await pool.end();
-    }
+    } 
   }
 
   static async delete(id) {
@@ -96,9 +87,7 @@ class Item {
       let [result, _] = await pool.execute(sql, [id]);
     } catch (error) {
       throw error;
-    } finally {
-      // await pool.end();
-    }
+    } 
   }
 }
 
