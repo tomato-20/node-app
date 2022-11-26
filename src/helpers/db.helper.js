@@ -10,5 +10,4 @@ let pool = mysql.createPool({
     database: dbconfig.DB_NAME,
 })
 
-
 module.exports = pool.promise();
