@@ -1,6 +1,6 @@
 const express = require('express'),
     cors = require('cors');
-const errorHandlerMiddleware = require('./middleweres/errorhandle.middleware');
+const errorHandlerMiddleware = require('./middleweres/errorhandler.middlewere');
     path = require('path');
 
 const mainRoutes = require('./routes');
@@ -12,16 +12,11 @@ app.use(cors());
 
 app.use('/api',mainRoutes);
 
-app.use((err,req,res,next) => {
-    console.log(err.stack || err)
-    res.status(500).json({
-        msg: err.message || err.msg
-    })
-});
+app.use(errorHandlerMiddleware);
 
-process.on('uncaughtException', (req,res,next) => {
-    // res.status(500).json({msg: 'uncaght exception occured'});
-    console.log('uncaught exception')
-    process.exit();
-})
+// process.on('uncaughtException', (req,res,next) => {
+//     // res.status(500).json({msg: 'uncaght exception occured'});
+//     console.log('uncaught exception')
+//     process.exit();
+// })
 module.exports = app;
